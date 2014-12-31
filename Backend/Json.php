@@ -20,18 +20,25 @@ error_reporting(E_ALL);
 	
 	
    //usage  ---  Json::withKey(..)
-   public static function withKey( $key, $clientId ) {
+   public static function withKey( $key, $clientId , $AuthKey) {
     	$instance = new self();
-    	$instance->LoadByKey( $key, $clientId );
+    	$instance->LoadByKey( $key, $clientId, $AuthKey );
     	return $instance;
     }
 	
 	/*Get Json by ClientID and Key*/
-	function LoadByKey($key, $clientId)
+	function LoadByKey($key, $clientId, $AuthKey)
 	{
 		$db = new Mysqlidb (DATABASE_SERVER, DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE_NAME);
 		$db->where ('JsonKey', $key);
-		$db->where ('ClientID', $clientId);	
+		if($clientId >0)
+		{
+			$db->where ('ClientID', $clientId);	
+		}
+		else
+		{
+			$db->where ('AuthKey', $AuthKey);	
+		}
 		$res = $db->get ("Json", 1);
 		
 		if ($db->count > 0){
