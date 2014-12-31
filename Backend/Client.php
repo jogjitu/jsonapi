@@ -26,6 +26,12 @@ error_reporting(E_ALL);
 		return $instance;
     }
 	
+	public static function withAuthKey($key) {
+		$instance = new self();
+		$instance->LoadByAuthKey($key);
+		return $instance;
+    }
+	
 	/*Get Client By ID*/
 	function LoadByID($ID)
 	{
@@ -43,6 +49,24 @@ error_reporting(E_ALL);
 			}
 		}
 	}
+	
+	function LoadByAuthKey($authKey)
+	{
+		$db = new Mysqlidb (DATABASE_SERVER, DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE_NAME);
+		$db->where ('AuthKey', $authKey);
+		$res = $db->get ("Client", 1);
+		if ($db->count > 0){
+			foreach ($res as $rec) { 
+				
+				$this->ID = $rec['ID'];
+				$this->ProjectName = $rec['ProjectName'];
+				$this->RegistrationDate = $rec['RegisteredDate'];
+				$this->Email = $rec['Email'];
+				$this->AuthKey = $rec['AuthKey'];
+			}
+		}
+	}
+	
    /*Create and Update*/
    function SaveClient()
    {
