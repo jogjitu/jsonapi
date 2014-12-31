@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `json` (
-  `ID` int(11) NOT NULL COMMENT 'This is primay ket for Json table',
+  `ID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'This is primay ket for Json table',
   `ClientId` int(11) NOT NULL COMMENT 'Foreign key for client table',
   `JsonKey` varchar(50) NOT NULL COMMENT 'Json key to access the value for json object',
   `JsonString` longtext CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'value for json object',
