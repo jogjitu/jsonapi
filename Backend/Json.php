@@ -23,6 +23,8 @@ error_reporting(E_ALL);
    public static function withKey( $key, $clientId) {
     	$instance = new self();
     	$instance->LoadByKey( $key, $clientId);
+		$instance->ClientID = $clientId;
+		$instance->JsonKey = $key;
     	return $instance;
     }
 	
@@ -54,7 +56,8 @@ error_reporting(E_ALL);
    function SaveJson()
    {
 		$db = new Mysqlidb (DATABASE_SERVER, DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE_NAME);
-		if($this->ID == "")/*Create*/
+		
+		if($this->ID == "" || $this->ID == 0)/*Create*/
 		{
 			$data = Array(
 				'ClientId' => $this->ClientID,
@@ -63,7 +66,8 @@ error_reporting(E_ALL);
 				'ModifiedDate' => date("Y-m-d H:i:s"),
 				'CreatedDate' => date("Y-m-d H:i:s")
 			);
-			$this->ID = $db->insert ('json', $data);
+			$this->ID = $db->insert ('Json', $data);
+			echo $db->getLastError();
 		}
 		else
 		{//Update
