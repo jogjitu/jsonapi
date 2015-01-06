@@ -46,7 +46,7 @@ error_reporting(E_ALL);
 		function SaveProfile()
 		{
 			$db = new Mysqlidb (DATABASE_SERVER, DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE_NAME);
-			if($this->ID == "") //Create
+			if($this->ID == "" || $this->ID == 0) //Create
 			{
 				
 				$data = Array(

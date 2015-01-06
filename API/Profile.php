@@ -8,7 +8,7 @@ $jsonProfile = json_decode($data);
 $profile = new Profile();
 $profile->Name = $jsonProfile->{'Name'};
 $profile->PhoneNumber = $jsonProfile->{'PhoneNumber'};
-
+$profile->ID = $jsonProfile->{'ID'};
 $profile->SaveProfile();
 
 echo json_encode($profile);
